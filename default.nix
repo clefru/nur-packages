@@ -1,5 +1,11 @@
-self: pkgs: {
-  beam = pkgs.callPackage ./pkgs/beam {};
+{ pkgs ? import <nixpkgs> {} }:
+{
+  # The `lib`, `modules`, and `overlay` names are special
+  lib = import ./lib { inherit pkgs; }; # functions
+  modules = import ./modules; # NixOS modules
+  overlays = import ./overlays; # nixpkgs overlays
+
+  beam-wallet = pkgs.callPackage ./pkgs/beam {};
   grin = pkgs.callPackage ./pkgs/grin/grin.nix {};
   grin-miner = pkgs.callPackage ./pkgs/grin/grin-miner.nix {};
   linux-sgx = pkgs.callPackage ./pkgs/linux-sgx {};
