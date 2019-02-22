@@ -31,4 +31,10 @@ in buildFHSUserEnv {
     debExtract
   ];
   runScript = "/usr/bin/BeamWallet";
+
+  meta = {
+    description = "Beam Mimblewimble Wallet";
+    homepage = https://www.beam.mw/;
+    license = stdenv.lib.asl20;
+  };
 }

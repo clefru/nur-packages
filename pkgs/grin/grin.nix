@@ -14,9 +14,9 @@ with pkgs;
     rev = "ba994248ac7f4e4e9e24abb5c654051f81862779";
     sha256 = "00lmvhx5mmsna87vrdhaff8v8hqdhakr77ax1rarrqzjggpnm4gb";
   };
-  
+
   cargoSha256 = "19snmmrqb8ar5072jpq905asazanpm7fbpn8p9x023cfnlc2g1c4";
-  
+
   # tests failing
   checkPhase = "";
   postUnpack = let grinwebwallet = fetchurl {
@@ -26,7 +26,13 @@ with pkgs;
   in ''
     (cd source; patch -p1 < ${./grin.diff})
     gzip -cd ${grinwebwallet} > /tmp/wallet.tar'';
-    
-  # Needed for tests  
+
+  # Needed for tests
   LIBCLANG_PATH = "${llvmPackages.clang-unwrapped.lib}/lib";
+
+  meta = {
+    description = "Grin Mimblewimble node";
+    homepage = https://grin-tech.org/;
+    license = stdenv.lib.licenses.asl20;
+  };
 })

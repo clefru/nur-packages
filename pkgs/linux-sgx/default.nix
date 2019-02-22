@@ -2,7 +2,7 @@
 with pkgs;
 stdenv.mkDerivation {
   name = "linux-sgx";
-  
+
   src = (fetchFromGitHub {
     owner = "intel";
     rev = "bf22963411f8cd1e8d01989eb9979e0b114871ff";
@@ -12,9 +12,9 @@ stdenv.mkDerivation {
     # fetching from github. wget is required for that.
     extraPostFetch = "cd $out; bash ./download_prebuilt.sh";
   }).overrideAttrs (attrs: { buildInputs = attr.buildInputs ++ [ wget cacert ]; });
-  
+
   phases = "unpackPhase patchPhase buildPhase installPhase";
-  
+
   buildInputs = [ gcc bash automake autoconf pkgconfig libtool ocaml
     ocamlPackages.ocamlbuild libressl wget python protobuf protobufc
     curl coreutils file which mktemp ];
@@ -27,7 +27,7 @@ stdenv.mkDerivation {
   preBuild = ''
     patchShebangs .
   '';
-  
+
   installPhase = ''
    linux/installer/bin/sgx_linux_x64_sdk_* -prefix $out;
 
@@ -37,4 +37,9 @@ stdenv.mkDerivation {
    mv $PSW_INST_DIR/opt/intel/sgxpsw $out/sgxpsw
    mv $PSW_INST_DIR/usr/lib64 $out/lib
   '';
+
+  meta = {
+    description = "Intel SGX for Linux";
+    homepage = https://01.org/intel-softwareguard-extensions;
+  };
 }

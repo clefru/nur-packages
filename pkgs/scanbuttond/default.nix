@@ -11,4 +11,9 @@ stdenv.mkDerivation {
   };
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ libusb ];
+
+  meta = {
+    description = "Daemon to respond to scanner button presses";
+    license = stdenv.lib.licenses.gpl2;
+  };
 }
