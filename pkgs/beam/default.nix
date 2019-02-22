@@ -4,8 +4,8 @@ with pkgs;
 let debExtract = stdenv.mkDerivation {
   name = "beam-wallet";
   src = fetchurl {
-    url = "https://builds.beam.mw/mainnet/2019.01.03/Release/linux/Beam-Wallet-1.0.3976.deb";
-    sha256 = "1p2an7qqahr2b9lbpdparrlyjjrpcs1mmg8k7pg1x8ph1l4cwpxc";
+    url = "https://builds.beam.mw/mainnet/2019.02.11/Release/linux/Beam-Wallet-1.2.4419.deb";
+    sha256 = "19ws0zc6gkvmhyzjf731mwv2nm80zr924l9pna48zs2dj2ir89nk";
   };
   phases = [ "buildPhase" ];
   buildInputs = [ dpkg ];
@@ -35,6 +35,6 @@ in buildFHSUserEnv {
   meta = {
     description = "Beam Mimblewimble Wallet";
     homepage = https://www.beam.mw/;
-    license = stdenv.lib.asl20;
+    license = stdenv.lib.licenses.asl20;
   };
 }
