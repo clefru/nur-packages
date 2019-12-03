@@ -21,5 +21,17 @@
   scanbuttond = pkgs.callPackage ./pkgs/scanbuttond {};
   minionpro = pkgs.callPackage ./pkgs/minionpro {};
   omnicore = pkgs.callPackage ./pkgs/omnicore { withGui = true; };
+  zsh-nix-shell = pkgs.callPackage ./pkgs/zsh-nix-shell { };
+  # FIXME Convert python overlay style to https://github.com/NixOS/nixpkgs/issues/26487
+  python3Packages = pkgs.python3Packages // {
+    cryptofeed = pkgs.python3Packages.callPackage ./pkgs/python-pkgs/default.nix { };
+  };
+#  python2Packages = pkgs.recurseIntoAttrs (
+#    pkgs.python2Packages.callPackage ./pkgs/python-pkgs/default.nix { }
+#  );
+  clefruPython3Packages = pkgs.recurseIntoAttrs (
+    pkgs.python3Packages.callPackage ./pkgs/python-pkgs/default.nix { }
+  );
+  
 #  python-pure25519 = pkgs.callPackage ./pkgs/python-pure25519 { buildPythonPackage = pkgs.python27.buildPythonPackage } };
 }
