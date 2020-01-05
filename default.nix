@@ -24,17 +24,4 @@
   zsh-nix-shell = pkgs.callPackage ./pkgs/zsh-nix-shell { };
   #qemu = pkgs.qemu.overrideDerivation (old: { configureFlags = old.configureFlags ++ ["--enable-vhost-user-fs"] ; });
   virtiofsd = pkgs.callPackage ./pkgs/virtiofsd { };
-
-  # FIXME Convert python overlay style to https://github.com/NixOS/nixpkgs/issues/26487
-  python3Packages = pkgs.python3Packages // {
-    cryptofeed = pkgs.python3Packages.callPackage ./pkgs/python-pkgs/default.nix { };
-  };
-#  python2Packages = pkgs.recurseIntoAttrs (
-#    pkgs.python2Packages.callPackage ./pkgs/python-pkgs/default.nix { }
-#  );
-  clefruPython3Packages = pkgs.recurseIntoAttrs (
-    pkgs.python3Packages.callPackage ./pkgs/python-pkgs/default.nix { }
-  );
-  
-#  python-pure25519 = pkgs.callPackage ./pkgs/python-pure25519 { buildPythonPackage = pkgs.python27.buildPythonPackage } };
 }
