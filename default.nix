@@ -22,6 +22,7 @@ rec {
   minionpro = pkgs.callPackage ./pkgs/minionpro {};
   omnicore = pkgs.callPackage ./pkgs/omnicore { withGui = true; };
   zsh-nix-shell = pkgs.callPackage ./pkgs/zsh-nix-shell { };
+  usbreset = pkgs.callPackage ./pkgs/usbreset { };
   #qemu = pkgs.qemu.overrideDerivation (old: { configureFlags = old.configureFlags ++ ["--enable-vhost-user-fs"] ; });
   virtiofsd = pkgs.callPackage ./pkgs/virtiofsd { };
 }
