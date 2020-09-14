@@ -10,11 +10,10 @@ env:
 matrix:
   fast_finish: true
   include:
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
     - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-18.09
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.09
   allow_failures:
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-18.09
+    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
 
 install:
   - |
