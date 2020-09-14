@@ -23,6 +23,4 @@ rec {
   zsh-nix-shell = pkgs.callPackage ./pkgs/zsh-nix-shell { };
   usbreset = pkgs.callPackage ./pkgs/usbreset { };
   gtk-v4l = pkgs.callPackage ./pkgs/gtk-v4l { };
-  #qemu = pkgs.qemu.overrideDerivation (old: { configureFlags = old.configureFlags ++ ["--enable-vhost-user-fs"] ; });
-  virtiofsd = pkgs.callPackage ./pkgs/virtiofsd { };
 }
