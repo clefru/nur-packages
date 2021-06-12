@@ -2,7 +2,7 @@
 with pkgs;
 
 stdenv.mkDerivation rec {
-  version = "985.1b";
+  version = "";
   pname = "ib-tws";
 
   src = fetchurl {
