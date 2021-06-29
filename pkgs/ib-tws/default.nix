@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
     # so that we can use Oracle JRE pkgs of nixpkgs.
     sed -i 's#test_jvm "$INSTALL4J_JAVA_HOME_OVERRIDE"#app_java_home="$INSTALL4J_JAVA_HOME_OVERRIDE"#' $out/libexec/tws
 
-    # The vmoptions is not writable, so you cannot increase memory from within
-    # the application, as the write to the vmoption file will get rejected.
-    sed -i 's#-Xmx768m#-Xmx4096m#' $out/libexec/tws.vmoptions
+    # Make the tws launcher script read $HOME/.tws/tws.vmoptions
+    # instead of the unmutable version in $out.
+    sed -i -e 's#read_vmoptions "$prg_dir/$progname.vmoptions"#read_vmoptions "$HOME/.tws/$progname.vmoptions"#' $out/libexec/tws
 
     # We set a bunch of flags found in the Arch PKGBUILD. The flags
     # releated to AA fonts seem to make a positive difference.
@@ -39,11 +39,9 @@ stdenv.mkDerivation rec {
     # -Dsun.java2d.opengl=False not applied. Why would I disable that?
     # -Dswing.aatext=true applied
     mkdir $out/bin
-    makeWrapper  $out/libexec/tws $out/bin/ib-tws \
-      --set INSTALL4J_JAVA_HOME_OVERRIDE ${pkgs.oraclejre8.home} \
-      --add-flags '-J-DjtsConfigDir=$HOME/.tws' \
-      --add-flags '-J-Dawt.useSystemAAFontSettings=lcd' \
-      --add-flags '-J-Dswing.aatext=true'
+    sed -e s#__OUT__#$out# -e s#__JAVAHOME__#${pkgs.oraclejre8.home}# ${./tws-wrap.sh} > $out/bin/ib-tws
+    chmod a+rx $out/bin/ib-tws
+
     # FIXME Fixup .desktop starter.
   '';
 
