@@ -39,11 +39,9 @@ stdenv.mkDerivation rec {
     # -Dsun.java2d.opengl=False not applied. Why would I disable that?
     # -Dswing.aatext=true applied
     mkdir $out/bin
-    makeWrapper  $out/libexec/tws $out/bin/ib-tws \
-      --set INSTALL4J_JAVA_HOME_OVERRIDE ${pkgs.oraclejre8.home} \
-      --add-flags '-J-DjtsConfigDir=$HOME/.tws' \
-      --add-flags '-J-Dawt.useSystemAAFontSettings=lcd' \
-      --add-flags '-J-Dswing.aatext=true'
+    sed -e s#__OUT__#$out# -e s#__JAVAHOME__#${pkgs.oraclejre8.home}# ${./tws-wrap.sh} > $out/bin/ib-tws
+    chmod a+rx $out/bin/ib-tws
+
     # FIXME Fixup .desktop starter.
   '';
 
