@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
     # so that we can use Oracle JRE pkgs of nixpkgs.
     sed -i 's#test_jvm "$INSTALL4J_JAVA_HOME_OVERRIDE"#app_java_home="$INSTALL4J_JAVA_HOME_OVERRIDE"#' $out/libexec/tws
 
-    # The vmoptions is not writable, so you cannot increase memory from within
-    # the application, as the write to the vmoption file will get rejected.
-    sed -i 's#-Xmx768m#-Xmx4096m#' $out/libexec/tws.vmoptions
+    # Make the tws launcher script read $HOME/.tws/tws.vmoptions
+    # instead of the unmutable version in $out.
+    sed -i -e 's#read_vmoptions "$prg_dir/$progname.vmoptions"#read_vmoptions "$HOME/.tws/$progname.vmoptions"#' $out/libexec/tws
 
     # We set a bunch of flags found in the Arch PKGBUILD. The flags
     # releated to AA fonts seem to make a positive difference.
