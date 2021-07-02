@@ -5,7 +5,7 @@ stdenv.mkDerivation rec {
   pname = "quantlib";
   version = "1.21";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A free/open-source library for quantitative finance";
     homepage = "https://www.quantlib.org/";
     platforms = platforms.all;

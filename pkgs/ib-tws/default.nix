@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     # FIXME Fixup .desktop starter.
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Trader Work Station of Interactive Brokers";
     homepage = "https://www.interactivebrokers.com";
     license = licenses.unfree;

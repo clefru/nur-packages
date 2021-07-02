@@ -30,7 +30,7 @@ buildPythonPackage rec {
   ];
   enableParallelBuilding = true;
   
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Python wrappings for QuantLib";
     homepage = "https://www.quantlib.org/";
     license = licenses.bsd3;
