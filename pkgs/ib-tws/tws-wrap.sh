@@ -1,9 +1,9 @@
 #!/bin/sh
 export INSTALL4J_JAVA_HOME_OVERRIDE='__JAVAHOME__'
-mkdir -p ${HOME}/.tws
+mkdir -p $HOME/.tws
 VMOPTIONS=$HOME/.tws/tws.vmoptions
 if [ ! -e tws.vmoptions ]; then
-    cp __OUT__/libexec/tws.vmoptions
+    cp __OUT__/libexec/tws.vmoptions $HOME/.tws
 fi
 # The vm options file should always refer to itself.
 sed -i -e 's#-DvmOptionsPath=.*#-DvmOptionsPath=$VMOPTIONS#' $VMOPTIONS
