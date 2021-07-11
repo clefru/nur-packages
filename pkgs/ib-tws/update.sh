@@ -14,7 +14,7 @@ else
     GIT="git";
 fi
 
-if [ "$UPSTREAM_VERSION" != "$LOCAL_VERSION" ]; then
+if [ "$UPSTREAM_VERSION" != "$LOCAL_VERSION" -a -n "$UPSTREAM_VERSION" ]; then
   $GIT pull --rebase
   if [ -z "$(git status --untracked-files=no --porcelain)" ]; then
       $GIT stash
