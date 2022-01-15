@@ -3,7 +3,7 @@ with pkgs;
 
 stdenv.mkDerivation rec {
   version = "10.12.2h";
-  pname = "ib-tws";
+  pname = "ib-tws-native";
 
   src = fetchurl {
     url = "https://download2.interactivebrokers.com/installers/tws/latest-standalone/tws-latest-standalone-linux-x64.sh";
@@ -39,8 +39,9 @@ stdenv.mkDerivation rec {
     # -Dsun.java2d.opengl=False not applied. Why would I disable that?
     # -Dswing.aatext=true applied
     mkdir $out/bin
-    sed -e s#__OUT__#$out# -e s#__JAVAHOME__#${pkgs.oraclejre8.home}# -e s#__GTK__#${pkgs.gtk3}# ${./tws-wrap.sh} > $out/bin/ib-tws
-    chmod a+rx $out/bin/ib-tws
+    sed -e s#__OUT__#$out# -e s#__JAVAHOME__#${pkgs.oraclejre8.home}# -e s#__GTK__#${pkgs.gtk3}# -e s#__CCLIBS__#${pkgs.stdenv.cc.cc.lib}# ${./tws-wrap.sh} > $out/bin/ib-tws-native
+
+    chmod a+rx $out/bin/ib-tws-native
 
     # FIXME Fixup .desktop starter.
   '';
@@ -52,4 +53,41 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.clefru ];
     platforms = platforms.linux;
   };
+};
+# IB TWS packages the JxBrowser component. It unpacks a pre-built
+# Chromium binary (yikes!) that needs an FHS environment. For me, that
+# doesn't yet work, and the chromium fails to launch with an error
+# code.
+in buildFHSUserEnv {
+  name = "ib-tws";
+  targetPkgs = pkgs1: [
+    ibDerivation
+
+    # Chromium dependencies. This might be incomplete.
+    xorg.libXfixes
+    alsa-lib
+    xorg.libXcomposite
+    cairo
+    xorg.libxcb
+    pango
+    glib
+    atk
+    at-spi2-core
+    at-spi2-atk
+    xorg.libXext
+    libdrm
+    nspr
+    #xorg.libxkbcommon
+    nss
+    cups
+    mesa
+    expat
+    dbus
+    xorg.libXdamage
+    xorg.libXrandr
+    xorg.libX11
+    xorg.libxshmfence
+    libxkbcommon
+  ];
+  runScript = "/usr/bin/ib-tws-native";
 }
