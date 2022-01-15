@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> {} }:
 with pkgs;
 
-stdenv.mkDerivation rec {
+let ibDerivation = stdenv.mkDerivation rec {
   version = "10.12.2h";
   pname = "ib-tws-native";
 
