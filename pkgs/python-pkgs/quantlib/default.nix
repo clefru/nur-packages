@@ -1,4 +1,4 @@
-{ buildPythonPackage, quantlib, boost, swig, autoreconfHook, stdenv, fetchurl }:
+{ stdenv, lib, buildPythonPackage, quantlib, boost, swig, autoreconfHook, fetchurl }:
 
 buildPythonPackage rec {
   pname = "quantlib";
