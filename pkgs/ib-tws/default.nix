@@ -2,12 +2,12 @@
 with pkgs;
 
 let ibDerivation = stdenv.mkDerivation rec {
-  version = "10.23.1q";
+  version = "10.23.2a";
   pname = "ib-tws-native";
 
   src = fetchurl {
     url = "https://download2.interactivebrokers.com/installers/tws/latest-standalone/tws-latest-standalone-linux-x64.sh";
-    sha256 = "0pyvzb7rgghb1kyibw0aki8bl3nn4qzsd56z10kkbphssaqa4r8f";
+    sha256 = "0jb5cxi8xr7l5nlfxdk4j6va5n29l4pw4055jb4pzn3yscyxxc9z";
     executable = true;
   };
 
