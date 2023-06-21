@@ -22,6 +22,9 @@ let ibDerivation = stdenv.mkDerivation rec {
     # We use an installer FHS environment because the shell script unpacks
     # a binary, and immediately calls that binary. There is little hope
     # for us to patchelf ld-linux in between. An FHS env is easier.
+    mkdir -p $out/libexec
+    ls -ld $out
+    ls -ld $out/libexec
     ${buildFHSUserEnv { name = "fhs"; }}/bin/fhs ${src} -q -dir $out/libexec
 
     # The following disables the JRE compatability check inside the tws script
