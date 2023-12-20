@@ -41,7 +41,7 @@ in stdenv.mkDerivation rec {
   
   phases = [ "unpackPhase" "buildPhase" "installPhase" ];
  			       
-  buildInputs = [ texlive.combined.scheme-minimal libarchive ];
+  nativeBuildInputs = [ texlive.combined.scheme-minimal libarchive lcdf-typetools ];
 
   sourceRoot = ".";
   buildPhase = (''
