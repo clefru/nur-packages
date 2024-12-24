@@ -1,7 +1,12 @@
 { pkgs ? import <nixpkgs> {} }:
 with pkgs;
 
-let ibDerivation = stdenv.mkDerivation rec {
+let
+  jdkWithJavaFX = (pkgs.jdk11.override {
+    enableJavaFX = true;
+    openjfx = openjfx.override { withWebKit = true; };
+  });
+  ibDerivation = stdenv.mkDerivation rec {
   version = "10.33.1c";
   pname = "ib-tws-native";
 
@@ -39,7 +44,7 @@ let ibDerivation = stdenv.mkDerivation rec {
     # -Dsun.java2d.opengl=False not applied. Why would I disable that?
     # -Dswing.aatext=true applied
     mkdir $out/bin
-    sed -e s#__OUT__#$out# -e s#__JAVAHOME__#${pkgs.openjdk8.jre.home}# -e s#__GTK__#${pkgs.gtk3}# -e s#__CCLIBS__#${pkgs.stdenv.cc.cc.lib}# ${./tws-wrap.sh} > $out/bin/ib-tws-native
+    sed -e s#__OUT__#$out# -e s#__JAVAHOME__#${jdkWithJavaFX.home}# -e s#__GTK__#${pkgs.gtk3}# -e s#__CCLIBS__#${pkgs.stdenv.cc.cc.lib}# ${./tws-wrap.sh} > $out/bin/ib-tws-native
 
     chmod a+rx $out/bin/ib-tws-native
 
