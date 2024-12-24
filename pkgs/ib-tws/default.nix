@@ -93,6 +93,7 @@ in buildFHSUserEnv {
     xorg.libX11
     xorg.libxshmfence
     libxkbcommon
+    systemd # for libudev.so.1
   ];
   runScript = "/usr/bin/ib-tws-native";
 }
