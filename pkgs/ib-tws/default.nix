@@ -27,7 +27,11 @@ let
     # We use an installer FHS environment because the shell script unpacks
     # a binary, and immediately calls that binary. There is little hope
     # for us to patchelf ld-linux in between. An FHS env is easier.
-    ${buildFHSEnvChroot { name = "fhs"; }}/bin/fhs ${src} -q -dir $out/libexec
+    ${buildFHSEnvChroot { name = "fhs";
+                    targetPkgs = pkgs1: [
+                      libz
+                    ];
+                  }}/bin/fhs ${src} -q -dir $out/libexec
 
     # The following disables the JRE compatability check inside the tws script
     # so that we can use Oracle JRE pkgs of nixpkgs.
