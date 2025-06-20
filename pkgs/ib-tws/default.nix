@@ -70,7 +70,7 @@ let
 # Chromium binary (yikes!) that needs an FHS environment. For me, that
 # doesn't yet work, and the chromium fails to launch with an error
 # code.
-in buildFHSUserEnv {
+in buildFHSEnv {
   name = "ib-tws";
   targetPkgs = pkgs1: [
     ibDerivation
