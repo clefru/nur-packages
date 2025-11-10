@@ -2,12 +2,9 @@
 with pkgs;
 
 let
-  jdkWithJavaFX = (pkgs.jdk11.override {
+  jdkWithJavaFX = (pkgs.jdk23.override {
     enableJavaFX = true;
-    openjfx_jdk = openjfx17.override { withWebKit = true; };
-#    openjfx17 = openjfx17.override { withWebKit = true; };
-#    openjfx21 = openjfx21.override { withWebKit = true; };
-#    openjfx23 = openjfx23.override { withWebKit = true; };
+    openjfx_jdk = openjfx23;
   });
   ibDerivation = stdenv.mkDerivation rec {
   version = "10.41.1c";
