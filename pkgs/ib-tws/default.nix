@@ -7,7 +7,7 @@ let
     openjfx_jdk = openjfx23;
   });
   ibDerivation = stdenv.mkDerivation rec {
-  version = "10.47.1e";
+  version = "10.48.1b";
   pname = "ib-tws-native";
 
   src = fetchurl {
